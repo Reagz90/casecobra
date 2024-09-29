@@ -1,9 +1,12 @@
 import MaxWidthWrapper from "./MaxWidthWrapper";
 import Link from "next/link";
+import { buttonVariants } from "./ui/button";
+import { ArrowRight } from "lucide-react";
 
 const NavBar = () => {
-    //mocking auth for now
-    const user = undefined
+  //mocking auth for now
+  const user = undefined;
+  const isAdmin = false;
   return (
     <nav className="sticky z-[100] h-14 inset-x-0 top-0 w-full border-b boder-gray-200 bg-white/75 backdrop-blur-lg transition-all">
       <MaxWidthWrapper>
@@ -14,10 +17,41 @@ const NavBar = () => {
 
           <div className="h-full flex items-center space-x-4">
             {user ? (
-                <>
-                    <Link href="/api/auth/logout" className={}></Link>
-                </>
-            ) : ()}
+              <>
+                <Link
+                  href="/api/auth/logout"
+                  className={buttonVariants({
+                    size: "sm",
+                    variant: "ghost",
+                  })}
+                >
+                  Sign out
+                </Link>
+                {isAdmin ? (
+                  <Link
+                    href="/api/auth/logout"
+                    className={buttonVariants({
+                      size: "sm",
+                      variant: "ghost",
+                    })}
+                  >
+                    Dashboard ✨
+                  </Link>
+                ) : null}
+                <Link
+                  href="/configure/upload"
+                  className={buttonVariants({
+                    size: "sm",
+                    className: "hidden sm:flex items-center gap-1"
+                  })}
+                >
+                  Create case
+                  <ArrowRight className="m1-1.5 h-5 w-5" />
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
       </MaxWidthWrapper>
